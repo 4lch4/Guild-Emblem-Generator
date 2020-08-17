@@ -34,3 +34,4 @@ output/
 cache/
 
 \.vscode/
+pnpm-lock.yaml
