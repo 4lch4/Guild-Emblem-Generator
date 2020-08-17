@@ -25,10 +25,9 @@ param
   [System.String]
   $AccessToken,
   
-  [Parameter(Mandatory = $true,
-             Position = 1)]
+  [Parameter(Position = 1)]
   [System.String]
-  $OutDir
+  $OutDir = '.'
 )
 
 if ($(Test-Path $OutDir) -eq $false) {
@@ -52,7 +51,6 @@ function DownloadImage ($ObjectIn) {
   
   Write-Output "Saved $Filename..."
 }
-
 
 foreach ($Emblem in $Components.emblems) {
   DownloadImage -ObjectIn $Emblem
