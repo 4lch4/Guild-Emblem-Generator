@@ -12,3 +12,4 @@ export { getRandom }
 
 export { Modifier } from './Modifier'
 export { Retriever } from './Retriever'
+export { CanvasManager } from './CanvasManager'
