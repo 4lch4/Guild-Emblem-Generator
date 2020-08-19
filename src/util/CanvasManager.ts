@@ -1,15 +1,14 @@
 import { Canvas, Image } from 'canvas'
 
 import { CleanGuild, CrestImages } from '../interfaces'
-import { Coordinates } from './Constants'
-import { Retriever } from './Retriever'
+import { Coordinates, IOManager } from './'
 
 /**
  * Used to help keep all Canvas related methods in one class, with the exception
  * of the Modifier class.
  */
 export class CanvasManager {
-  retriever = new Retriever()
+  ioManager = new IOManager()
 
   async getBaseImages(cleanedGuild: CleanGuild): Promise<CrestImages> {
     const {
@@ -18,7 +17,7 @@ export class CanvasManager {
       flag: flagBuffer,
       hooks: hooksBuffer,
       icon: iconBuffer
-    } = await this.retriever.getAllImages(cleanedGuild)
+    } = await this.ioManager.getAllImages(cleanedGuild)
 
     const icon = new Image()
     icon.src = iconBuffer
@@ -38,7 +37,7 @@ export class CanvasManager {
     return { icon, hooks, border, flag, background }
   }
 
-  async generateCrest(images: CrestImages) {
+  async layerCrestImages(images: CrestImages) {
     const canvas = new Canvas(250, 250)
     const ctx = canvas.getContext('2d')
 
@@ -81,5 +80,7 @@ export class CanvasManager {
       images.icon.width,
       images.icon.height
     )
+
+    return canvas
   }
 }

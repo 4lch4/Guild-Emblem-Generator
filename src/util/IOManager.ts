@@ -4,10 +4,10 @@ import { join } from 'path'
 import { CleanGuild, CrestImageBuffers } from '../interfaces'
 
 /**
- * The helper class responsible for retrieving images from disk that are used to
- * build emblems.
+ * The helper class responsible for retrieving and storing images to disk that
+ * are used to build emblems.
  */
-export class Retriever {
+export class IOManager {
   /** The directory where all the images are stored. */
   imgPath = join(__dirname, '..', 'img')
 

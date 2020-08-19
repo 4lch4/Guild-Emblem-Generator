@@ -12,6 +12,6 @@ export { getRandom }
 
 export { CanvasManager } from './CanvasManager'
 export { InputCleaner } from './InputCleaner'
-export { Retriever } from './Retriever'
+export { IOManager } from './IOManager'
 export { Modifier } from './Modifier'
 export { Coordinates, Factions } from './Constants'
