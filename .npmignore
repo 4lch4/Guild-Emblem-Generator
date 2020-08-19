@@ -1,2 +1,14 @@
-tests/
+# Directories
 examples/
+node_modules/
+sampleData/
+src/
+tests/
+util/
+
+# Files
+.gitignore
+.prettierrc
+azure-pipelines.yml
+package-lock.json
+tsconfig.json

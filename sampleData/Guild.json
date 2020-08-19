@@ -1,0 +1,82 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://us.api.blizzard.com/data/wow/guild/illidan/complexity-limit?namespace=profile-us"
+    }
+  },
+  "id": 52374740,
+  "name": "Complexity Limit",
+  "faction": {
+    "type": "HORDE",
+    "name": "Horde"
+  },
+  "achievement_points": 1945,
+  "member_count": 702,
+  "realm": {
+    "key": {
+      "href": "https://us.api.blizzard.com/data/wow/realm/57?namespace=dynamic-us"
+    },
+    "name": "Illidan",
+    "id": 57,
+    "slug": "illidan"
+  },
+  "crest": {
+    "emblem": {
+      "id": 69,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/guild-crest/emblem/69?namespace=static-8.3.7_35114-us&access_token=US4q5N14zK1OFlhkmOzQJj2wF73P9wVsGi"
+        },
+        "id": 69
+      },
+      "color": {
+        "id": 7,
+        "rgba": {
+          "r": 0,
+          "g": 103,
+          "b": 31,
+          "a": 1
+        }
+      }
+    },
+    "border": {
+      "id": 3,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/guild-crest/border/3?namespace=static-8.3.7_35114-us"
+        },
+        "id": 3
+      },
+      "color": {
+        "id": 7,
+        "rgba": {
+          "r": 0,
+          "g": 103,
+          "b": 31,
+          "a": 1
+        }
+      }
+    },
+    "background": {
+      "color": {
+        "id": 45,
+        "rgba": {
+          "r": 35,
+          "g": 35,
+          "b": 35,
+          "a": 1
+        }
+      }
+    }
+  },
+  "roster": {
+    "href": "https://us.api.blizzard.com/data/wow/guild/illidan/complexity-limit/roster?namespace=profile-us"
+  },
+  "achievements": {
+    "href": "https://us.api.blizzard.com/data/wow/guild/illidan/complexity-limit/achievements?namespace=profile-us"
+  },
+  "created_timestamp": 1425284995000,
+  "activity": {
+    "href": "https://us.api.blizzard.com/data/wow/guild/illidan/complexity-limit/activity?namespace=profile-us"
+  }
+}
