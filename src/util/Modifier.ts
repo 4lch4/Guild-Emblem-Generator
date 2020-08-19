@@ -1,51 +1,43 @@
 import { Canvas, Image } from 'canvas'
 
+import { CleanGuild } from '../interfaces/CleanGuild'
+import { Images } from '../interfaces/Images'
+import { RGBA } from '../interfaces/RGBA'
+
 export class Modifier {
-  async changeImageColor(img: Image, red: number, green: number, blue: number) {
+  async changeImageColor(img: Image, rgba: RGBA) {
     const rgbks = await this.generateRGBKs(img)
 
-    return this.generateTintImage(img, rgbks, red, green, blue)
+    return this.generateTintImage(img, rgbks, rgba)
   }
 
-  async updateBaseImageColor(images: Image[], colors: Colors) {
-    for (let key in images) {
-      const colorKey = key + 'Color'
-      //@ts-ignore
-      if (colors[colorKey] !== undefined) {
-        //@ts-ignore
-        const rgb = await this.hexToRGB(colors[colorKey])
-        images[key] = await this.changeImageColor(
-          images[key],
-          rgb.red,
-          rgb.green,
-          rgb.blue
-        )
-      }
-    }
+  async updateBaseImageColor(
+    images: Images,
+    guild: CleanGuild
+  ): Promise<Images> {
+    images.icon = await this.changeImageColor(images.icon, guild.emblem.color.rgba)
+    images.border = await this.changeImageColor(images.border, guild.border.color.rgba)
+    images.background = await this.changeImageColor(images.background, guild.background.color.rgba)
 
     return Promise.resolve(images)
   }
 
   hexToRGB(hex: string) {
-    const r = parseInt(hex.slice(2, 4), 16)
-    const g = parseInt(hex.slice(4, 6), 16)
-    const b = parseInt(hex.slice(6, 8), 16)
-
-    return Promise.resolve({
-      red: r,
-      green: g,
-      blue: b
-    })
+    return {
+      r: parseInt(hex.slice(2, 4), 16),
+      g: parseInt(hex.slice(4, 6), 16),
+      b: parseInt(hex.slice(6, 8), 16)
+    }
   }
 
   async generateRGBKs(img: Image) {
-    let w = img.width
-    let h = img.height
-    let rgbks = []
+    const w = img.width
+    const h = img.height
+    const rgbks = []
 
     const finalCanvas = new Canvas(w, h)
 
-    let finalCtx = finalCanvas.getContext('2d')
+    const finalCtx = finalCanvas.getContext('2d')
     finalCtx.drawImage(img, 0, 0)
 
     const pixels = finalCtx.getImageData(0, 0, w, h).data
@@ -77,43 +69,31 @@ export class Modifier {
     return Promise.resolve(rgbks)
   }
 
-  async generateTintImage(
-    img: Image,
-    rgbks: any,
-    red: number,
-    green: number,
-    blue: number
-  ) {
-    const finalImg = new Image()
-    const buff = new Canvas(img.width, img.height)
-    const ctx = buff.getContext('2d')
+  async generateTintImage(img: Image, rgbks: any, rgba: RGBA) {
+    const finalImage = new Image()
+    const canvas = new Canvas(img.width, img.height)
+    const ctx = canvas.getContext('2d')
 
     ctx.globalAlpha = 1
     ctx.globalCompositeOperation = 'copy'
     ctx.drawImage(rgbks[3], 0, 0)
 
     ctx.globalCompositeOperation = 'lighter'
-    if (red > 0) {
-      ctx.globalAlpha = red / 255.0
+    if (rgba.r > 0) {
+      ctx.globalAlpha = rgba.r / 255.0
       ctx.drawImage(rgbks[0], 0, 0)
     }
-    if (green > 0) {
-      ctx.globalAlpha = green / 255.0
+    if (rgba.g > 0) {
+      ctx.globalAlpha = rgba.g / 255.0
       ctx.drawImage(rgbks[1], 0, 0)
     }
-    if (blue > 0) {
-      ctx.globalAlpha = blue / 255.0
+    if (rgba.b > 0) {
+      ctx.globalAlpha = rgba.b / 255.0
       ctx.drawImage(rgbks[2], 0, 0)
     }
 
-    finalImg.src = buff.toBuffer()
+    finalImage.src = canvas.toBuffer()
 
-    return Promise.resolve(finalImg)
+    return Promise.resolve(finalImage)
   }
-}
-
-interface Colors {
-  iconColor: number
-  borderColor: number
-  backgroundColor: number
 }

@@ -10,6 +10,7 @@ const getRandom = (min: number, max: number) =>
 
 export { getRandom }
 
-export { Modifier } from './Modifier'
-export { Retriever } from './Retriever'
 export { CanvasManager } from './CanvasManager'
+export { InputCleaner } from './InputCleaner'
+export { Retriever } from './Retriever'
+export { Modifier } from './Modifier'

@@ -1,6 +1,6 @@
 import { Crest } from './Crest'
 import { Faction } from './Faction'
-import { Link } from './Link'
+import { Href } from './Href'
 
 export interface Guild {
   _links: _link
@@ -11,18 +11,18 @@ export interface Guild {
   member_count: number
   realm: Realm
   crest: Crest
-  roster: Link
-  achievements: Link
+  roster: Href
+  achievements: Href
   created_timestamp: number
-  activity: Link
+  activity: Href
 }
 
 interface _link {
-  self: Link
+  self: Href
 }
 
 interface Realm {
-  key: Link
+  key: Href
   name: string
   id: number
   slug: string

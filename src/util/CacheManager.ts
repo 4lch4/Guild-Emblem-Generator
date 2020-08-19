@@ -1,21 +1,20 @@
-import { Image } from 'canvas'
-
-import { Crest } from '../interfaces/Guild'
+import { CleanGuild } from '../interfaces/CleanGuild'
+import { Guild } from '../interfaces/Guild'
 
 export class CacheManager {
   /** TODO: COMPLETE THIS FUNCTION, IT'S NOT FUNCTIONAL */
-  private isCached(crest: Crest) {
-    return crest
+  private isCached(guild: Guild | CleanGuild) {
+    return guild
   }
 
   /** TODO: COMPLETE THIS FUNCTION, IT'S NOT FUNCTIONAL */
-  getImage(crest: Crest) {
-    if (this.isCached(crest)) return crest
+  getImage(guild: Guild | CleanGuild) {
+    if (this.isCached(guild)) return guild
     else return undefined
   }
 
   /** TODO: COMPLETE THIS FUNCTION, IT'S NOT FUNCTIONAL */
-  cacheImage(image: Image) {
-    return image
+  cacheImage(guild: Guild | CleanGuild) {
+    return guild
   }
 }

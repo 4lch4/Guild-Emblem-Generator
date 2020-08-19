@@ -1,6 +1,6 @@
-import { Link } from './Link'
+import { Href } from './Href'
 
 export interface Media {
   id: number
-  key: Link
+  key: Href
 }
