@@ -1,20 +1,38 @@
-import { CleanGuild } from '../interfaces/CleanGuild'
-import { Guild } from '../interfaces/Guild'
+import { outputFile, readFile, stat } from 'fs-extra'
 
-export class CacheManager {
-  /** TODO: COMPLETE THIS FUNCTION, IT'S NOT FUNCTIONAL */
-  private isCached(guild: Guild | CleanGuild) {
-    return guild
+import { CleanGuild, ICacheManager } from '../interfaces'
+
+export class CacheManager implements ICacheManager {
+  private isCached(filename: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      try {
+        stat(filename, err => {
+          if (err) resolve(false)
+          else resolve(true)
+        })
+      } catch (err) {
+        reject(err)
+      }
+    })
   }
 
-  /** TODO: COMPLETE THIS FUNCTION, IT'S NOT FUNCTIONAL */
-  getImage(guild: Guild | CleanGuild) {
-    if (this.isCached(guild)) return guild
-    else return undefined
+  private getFilename(guild: CleanGuild): string {
+    return `${guild.faction}.${guild.background.color.id}.${guild.border.id}.${guild.border.color.id}.${guild.emblem.id}.${guild.emblem.color.id}`
   }
 
-  /** TODO: COMPLETE THIS FUNCTION, IT'S NOT FUNCTIONAL */
-  cacheImage(guild: Guild | CleanGuild) {
-    return guild
+  async getEmblemBuffer(guild: CleanGuild) {
+    const filename = this.getFilename(guild)
+    if (this.isCached(filename)) {
+      return readFile(filename)
+    } else return Promise.resolve(undefined)
+  }
+
+  async cacheEmblem(guild: CleanGuild, image: Buffer) {
+    try {
+      await outputFile(this.getFilename(guild), image)
+      return undefined
+    } catch (err) {
+      return err
+    }
   }
 }
