@@ -1,7 +1,7 @@
 import { Canvas, Image } from 'canvas'
 
+import { Coordinates, IOManager } from '.'
 import { CleanGuild, CrestImages } from '../interfaces'
-import { Coordinates, IOManager } from './'
 
 /**
  * Used to help keep all Canvas related methods in one class, with the exception

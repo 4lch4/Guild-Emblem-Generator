@@ -1,3 +1,4 @@
+import { Factions } from '.'
 import {
   Border,
   CleanBorder,
@@ -7,7 +8,6 @@ import {
   Faction,
   Guild
 } from '../interfaces'
-import { Factions } from './Constants'
 
 /**
  * A utility class for cleaning/sanitizing inputs down to a usable and less
