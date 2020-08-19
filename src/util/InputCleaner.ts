@@ -1,10 +1,12 @@
-import { Border } from '../interfaces/Border'
-import { CleanBorder } from '../interfaces/CleanBorder'
-import { CleanEmblem } from '../interfaces/CleanEmblem'
-import { CleanGuild } from '../interfaces/CleanGuild'
-import { Emblem } from '../interfaces/Emblem'
-import { Faction } from '../interfaces/Faction'
-import { Guild } from '../interfaces/Guild'
+import {
+  Border,
+  CleanBorder,
+  CleanEmblem,
+  CleanGuild,
+  Emblem,
+  Faction,
+  Guild
+} from '../interfaces'
 import { Factions } from './Constants'
 
 /**

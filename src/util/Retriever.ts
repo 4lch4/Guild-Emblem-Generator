@@ -1,8 +1,7 @@
 import { readFile } from 'fs-extra'
 import { join } from 'path'
 
-import { CleanGuild } from '../interfaces/CleanGuild'
-import { ImageBuffers } from '../interfaces/Images'
+import { CleanGuild, CrestImageBuffers } from '../interfaces'
 
 /**
  * The helper class responsible for retrieving images from disk that are used to
@@ -12,7 +11,7 @@ export class Retriever {
   /** The directory where all the images are stored. */
   imgPath = join(__dirname, '..', 'img')
 
-  async getAllImages(cleanGuild: CleanGuild): Promise<ImageBuffers> {
+  async getAllImages(cleanGuild: CleanGuild): Promise<CrestImageBuffers> {
     return {
       icon: await this.getIcon(cleanGuild.emblem.id),
       hooks: await this.getHooks(),
@@ -45,7 +44,6 @@ export class Retriever {
    * @param factionId 0 = Alliance; 1 = Horde
    */
   async getBackground(factionId: number): Promise<Buffer> {
-
     switch (factionId) {
       case 0:
         return readFile(join(this.imgPath, 'ring-alliance.png'))
