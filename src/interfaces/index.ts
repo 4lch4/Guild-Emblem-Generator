@@ -1,5 +1,6 @@
 export { Background } from './Background'
 export { Border } from './Border'
+export { ICacheManager } from './ICacheManager'
 export { CleanBorder } from './CleanBorder'
 export { CleanEmblem } from './CleanEmblem'
 export { CleanGuild } from './CleanGuild'
