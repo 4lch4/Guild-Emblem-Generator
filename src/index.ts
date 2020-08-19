@@ -1,21 +1,38 @@
 import { Canvas } from 'canvas'
+import { outputFile, WriteFileOptions } from 'fs-extra'
 
-import { Guild } from './interfaces/Guild'
-import { CanvasManager, InputCleaner, Modifier, Retriever } from './util'
-import { Coordinates as coords } from './util/Constants'
-
+import { Guild } from './interfaces'
+import { CanvasManager, InputCleaner, IOManager, Modifier } from './util'
 
 class Didier {
   canvasManager = new CanvasManager()
-  retriever = new Retriever()
+  ioManager = new IOManager()
   modifier = new Modifier()
 
-  async getGuildCrestBuffer(guild: Guild) {
-    const canvas = await this.getGuildCrestCanvas(guild)
+  /**
+   * Creates an image of the guild emblem using the data in the given Guild
+   * object. The Guild object is generally returned via the Battle.net Guild API
+   * endpoints (/data/wow/guild/{realmSlug}/{nameSlug}).
+   *
+   * The resulting emblem image is returned as a Buffer via a Promise.
+   *
+   * @param guild The Guild object returned by the Battle.net API.
+   */
+  async getEmblemBuffer(guild: Guild) {
+    const canvas = await this.getEmblemCanvas(guild)
     return canvas.toBuffer()
   }
 
-  async getGuildCrestCanvas(guild: Guild): Promise<Canvas> {
+  /**
+   * Creates an image of the guild emblem using the data in the given Guild
+   * object. The Guild object is generally returned via the Battle.net Guild API
+   * endpoints (/data/wow/guild/{realmSlug}/{nameSlug}).
+   *
+   * The resulting emblem image is returned as a Canvas via a Promise.
+   *
+   * @param guild
+   */
+  async getEmblemCanvas(guild: Guild): Promise<Canvas> {
     // TODO: Add CacheManager implementation
     const cleanedGuild = InputCleaner.cleanGuild(guild)
 
@@ -26,51 +43,28 @@ class Didier {
       cleanedGuild
     )
 
-    const canvas = new Canvas(250, 250)
-    const ctx = canvas.getContext('2d')
+    return this.canvasManager.layerCrestImages(colorizedImages)
+  }
 
-    ctx.drawImage(
-      colorizedImages.background,
-      coords.background.x,
-      coords.background.y,
-      colorizedImages.background.width,
-      colorizedImages.background.height
-    )
-    
-    ctx.drawImage(
-      colorizedImages.flag,
-      coords.flag.x,
-      coords.flag.y,
-      colorizedImages.flag.width,
-      colorizedImages.flag.height
-    )
-    
-    ctx.drawImage(
-      colorizedImages.hooks,
-      coords.hooks.x,
-      coords.hooks.y,
-      colorizedImages.hooks.width,
-      colorizedImages.hooks.height
-    )
-    
-    ctx.drawImage(
-      colorizedImages.border,
-      coords.border.x,
-      coords.border.y,
-      colorizedImages.border.width,
-      colorizedImages.border.height
-    )
-    
-    ctx.drawImage(
-      colorizedImages.icon,
-      coords.icon.x,
-      coords.icon.y,
-      colorizedImages.icon.width,
-      colorizedImages.icon.height
-    )
-
-
-    return canvas
+  /**
+   * Creates an image of the guild emblem using the data in the given Guild
+   * object. The Guild object is generally returned via the Battle.net Guild API
+   * endpoints (/data/wow/guild/{realmSlug}/{nameSlug}).
+   *
+   * The resulting emblem image is saved to the location specified in the
+   * `filename` parameter.
+   *
+   * @param guild The Guild to generate an emblem for.
+   * @param filename The full path for where to store the resulting image.
+   * @param options Additional options to provide to fs-extra when saving.
+   */
+  async saveEmblemToFile(
+    guild: Guild,
+    filename: string,
+    options?: WriteFileOptions
+  ) {
+    const emblemBuffer = await this.getEmblemBuffer(guild)
+    return outputFile(filename, emblemBuffer, options)
   }
 }
 

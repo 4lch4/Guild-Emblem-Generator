@@ -1,4 +1,11 @@
-const Factions = {
+interface Factions {
+  [key: string]: {
+    id: number
+    name: string
+  }
+}
+
+const Factions: Factions = {
   ALLIANCE: {
     id: 0,
     name: 'Alliance'
@@ -13,7 +20,14 @@ const Factions = {
   }
 }
 
-const Coordinates = {
+interface Coordinates {
+  [key: string]: {
+    x: number
+    y: number
+  }
+}
+
+const Coordinates: Coordinates = {
   flag: {
     x: 37,
     y: 47

@@ -1,8 +1,6 @@
 import { Canvas, Image } from 'canvas'
 
-import { CleanGuild } from '../interfaces/CleanGuild'
-import { Images } from '../interfaces/Images'
-import { RGBA } from '../interfaces/RGBA'
+import { CleanGuild, CrestImages, RGBA } from '../interfaces'
 
 export class Modifier {
   async changeImageColor(img: Image, rgba: RGBA) {
@@ -12,12 +10,21 @@ export class Modifier {
   }
 
   async updateBaseImageColor(
-    images: Images,
+    images: CrestImages,
     guild: CleanGuild
-  ): Promise<Images> {
-    images.icon = await this.changeImageColor(images.icon, guild.emblem.color.rgba)
-    images.border = await this.changeImageColor(images.border, guild.border.color.rgba)
-    images.background = await this.changeImageColor(images.background, guild.background.color.rgba)
+  ): Promise<CrestImages> {
+    images.icon = await this.changeImageColor(
+      images.icon,
+      guild.emblem.color.rgba
+    )
+    images.border = await this.changeImageColor(
+      images.border,
+      guild.border.color.rgba
+    )
+    images.background = await this.changeImageColor(
+      images.background,
+      guild.background.color.rgba
+    )
 
     return Promise.resolve(images)
   }
